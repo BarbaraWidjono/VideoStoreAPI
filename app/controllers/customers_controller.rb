@@ -16,6 +16,9 @@ class CustomersController < ApplicationController
     end
   end
 
+  def zomg
+    render json: { this_route_works: "it works!" }
+  end
 
   private
 
