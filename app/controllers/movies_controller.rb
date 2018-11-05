@@ -14,7 +14,22 @@ class MoviesController < ApplicationController
     end
   end
 
+
+
+  def create
+    movie = Movie.new(movie_params)
+    if movie.save
+      render json: { id: movie.id }
+    else
+      render_error(:bad_request, movie.errors.messages)
+    end
+  end
+
   private
+
+  def movie_params
+    params.require(:movie).permit(:title, :overview, :release_date, :inventory)
+  end
 
   def movify_index(movie_data)
     return movie_data.as_json(only: [:id, :title, :release_date])
@@ -23,4 +38,8 @@ class MoviesController < ApplicationController
   def movify_show(movie_data)
     return movie_data.as_json(only: [:title, :overview, :release_date, :inventory])
   end
+
+
+
+
 end
