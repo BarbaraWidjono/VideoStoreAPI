@@ -1,3 +1,4 @@
+require 'date'
 class MoviesController < ApplicationController
   def index
     movies = Movie.all
@@ -18,6 +19,7 @@ class MoviesController < ApplicationController
 
   def create
     movie = Movie.new(movie_params)
+
     if movie.save
       render json: { id: movie.id }
     else
