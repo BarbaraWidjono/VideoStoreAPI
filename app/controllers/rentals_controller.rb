@@ -1,6 +1,10 @@
+require 'date'
 class RentalsController < ApplicationController
   def create
     rental = Rental.new(rental_params)
+    rental.check_out_date = Date.today
+    rental.due_date = (Date.today + 7)
+
     if rental.save
       change_avail_inventory(rental_params[:movie_id])
       render json: { id: rental}
@@ -19,5 +23,7 @@ class RentalsController < ApplicationController
     movie.available_inventory -= 1
     movie.save
   end
+
+
 
 end
