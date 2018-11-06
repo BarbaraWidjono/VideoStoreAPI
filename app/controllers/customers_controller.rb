@@ -16,7 +16,9 @@ class CustomersController < ApplicationController
     end
   end
 
-
+ def zomg
+   render json: { message: "it works!" }
+ end
   private
 
   def customerify(customer_data)
