@@ -3,8 +3,7 @@ class RentalsController < ApplicationController
     rental = Rental.new(rental_params)
     if rental.save
       change_avail_inventory(rental_params[:movie_id])
-      # binding.pry
-      render json: { id: rental.id }
+      render json: { id: rental}
     else
       render_error(:bad_request, {rental: ["no such rental"]})
     end
@@ -20,4 +19,5 @@ class RentalsController < ApplicationController
     movie.available_inventory -= 1
     movie.save
   end
+
 end
