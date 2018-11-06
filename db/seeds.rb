@@ -5,9 +5,3 @@ end
 JSON.parse(File.read('db/seeds/movies.json')).each do |movie|
   Movie.create!(movie)
 end
-
-
-JSON.parse(File.read('db/seeds/movies.json')).each do |movie|
-  movie[available_inventory] = movie[inventory]
-  Movie.create!(movie)
-end
