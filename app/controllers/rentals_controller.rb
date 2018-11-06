@@ -15,9 +15,5 @@ class RentalsController < ApplicationController
     params.require(:rental).permit(:movie_id, :customer_id)
   end
 
-  def change_avail_inventory(id)
-    binding.pry
-    movie = Movie.find_by(id: id)
-    movie.available_inventory -= 1
-  end
+
 end
