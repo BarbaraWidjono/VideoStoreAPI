@@ -13,6 +13,24 @@ class RentalsController < ApplicationController
     end
   end
 
+  def destroy
+    rental =  Rental.find_by(id: check_params[:id])
+    temp = rental.id
+    if rental.destroy
+      render json: { message: "#{temp} has been delted"}
+    end
+  end
+
+
+
+
+
+
+  private
+
+  def check_params
+    params.require(:rental).permit(:id)
+  end
 
   def rental_params
     params.require(:rental).permit(:movie_id, :customer_id)
@@ -23,7 +41,5 @@ class RentalsController < ApplicationController
     movie.available_inventory -= 1
     movie.save
   end
-
-
 
 end

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get '/zomg', to: 'customers#zomg'
 
-  resources :rentals, only: [:index, :show, :create]
+  resources :rentals, only: [:create, :destroy]
 
   # post '/rental', to: 'rentals#create', as: 'checkout'
 
