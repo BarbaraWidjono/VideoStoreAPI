@@ -4,8 +4,15 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  title: Blacksmith of the Orange
+  overview: The unexciting life of a boy will be permanently altered as a strange woman enters his life.
+  release_date: "1979-01-18"
+  inventory: 10
+
+
+two:
+    title: Savior Of The Curse
+    overview: The unexciting life of a boy will be permanently altered as a strange woman enters his life.
+    release_date: "2010-11-05"
+    inventory: 3

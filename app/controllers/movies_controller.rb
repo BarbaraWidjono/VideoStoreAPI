@@ -15,8 +15,6 @@ class MoviesController < ApplicationController
     end
   end
 
-
-
   def create
     movie = Movie.new(movie_params)
 
