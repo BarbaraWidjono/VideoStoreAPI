@@ -36,7 +36,7 @@ class MoviesController < ApplicationController
   end
 
   def movify_show(movie_data)
-    return movie_data.as_json(only: [:title, :overview, :release_date, :inventory])
+    return movie_data.as_json(only: [:title, :overview, :release_date, :inventory, :available_inventory])
   end
 
 
