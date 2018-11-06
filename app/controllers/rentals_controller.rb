@@ -15,9 +15,16 @@ class RentalsController < ApplicationController
 
   def destroy
     rental =  Rental.find_by(id: check_params[:id])
-    temp = rental.id
-    if rental.destroy
-      render json: { message: "#{temp} has been delted"}
+    if !rental
+      render json: { message: "Rental id: #{check_params[:id]} doesn't exist. Try again"}
+    else
+
+      temp = rental.id
+      temp_movie_id = rental.movie_id
+      if rental.destroy
+        checkin_change_avail_inventory(temp_movie_id)
+        render json: { message: "Rental id: #{temp} has been deleted"}
+      end
     end
   end
 
@@ -42,4 +49,9 @@ class RentalsController < ApplicationController
     movie.save
   end
 
+  def checkin_change_avail_inventory(id)
+    movie = Movie.find_by(id: id)
+    movie.available_inventory += 1
+    movie.save
+  end
 end
