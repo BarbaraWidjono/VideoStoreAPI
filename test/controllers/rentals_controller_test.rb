@@ -61,6 +61,21 @@ describe RentalsController do
       must_respond_with :success
     end
 
+    it 'will not decrament the movies available_inventory with an invalid rental' do
+      start_availability = movie_one.available_inventory
 
+      fake_cust_id = "999xxxx999xxx9x9x"
+      rental = {
+        "customer_id": fake_cust_id,
+        "movie_id": movie_one.id
+      }
+
+      post checkout_path, params: rental
+      movie_one.reload
+
+      end_availablity = movie_one.available_inventory
+
+      expect(start_availability).must_equal end_availablity
+    end
   end
 end
