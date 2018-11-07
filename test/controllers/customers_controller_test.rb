@@ -6,6 +6,25 @@ describe CustomersController do
       get customers_path
       must_respond_with :success
     end
+
+    it "returns json" do
+      get customers_path
+      expect(response.header['Content-Type']).must_include 'json'
+    end
+
+    it "returns an Array" do
+      get customers_path
+
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Array
+    end
+
+    it "returns all of the customers" do
+      get customers_path
+
+      body = JSON.parse(response.body)
+      body.length.must_equal Customer.count
+    end
   end
 
   describe 'show' do
@@ -21,9 +40,8 @@ describe CustomersController do
     end
 
     it 'will render a status not_found for a non-existant customer' do
-      destroyed_customer = @customer.destroy
-      destroyed_customer.save
-      get customer_path(destroyed_customer.id)
+      non_existant_cust_id = "99999xxxxxxxxxx9999"
+      get customer_path(non_existant_cust_id)
       must_respond_with :not_found
     end
   end
