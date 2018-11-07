@@ -15,6 +15,7 @@ class RentalsController < ApplicationController
   end
 
   def destroy
+    decrease_movie_count(check_params[:customer_id])
     rental =  Rental.find_by(customer_id: check_params[:customer_id], movie_id: check_params[:movie_id])
     if !rental
       render json: { message: "Rental id: #{check_params[:id]} doesn't exist. Try again"}
@@ -59,6 +60,11 @@ class RentalsController < ApplicationController
     customer.save
   end
 
+  def decrease_movie_count(id)
+    customer = Customer.find_by(id: id)
+    customer.movies_checked_out_count -= 1
+    customer.save
+  end
 
 
 

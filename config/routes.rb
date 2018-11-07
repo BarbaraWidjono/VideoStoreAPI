@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :rentals, only: [:destroy]
 
   post '/rentals/check-out', to: 'rentals#create', as: 'checkout'
+  post '/rentals/check-in', to: 'rentals#destroy', as: 'checkin'
+
 
   # post '/rental', to: 'rentals#create', as: 'checkout'
 
