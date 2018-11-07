@@ -14,7 +14,7 @@ class RentalsController < ApplicationController
   end
 
   def destroy
-    rental =  Rental.find_by(id: check_params[:id])
+    rental =  Rental.find_by(customer_id: check_params[:customer_id], movie_id: check_params[:movie_id])
     if !rental
       render json: { message: "Rental id: #{check_params[:id]} doesn't exist. Try again"}
     else
@@ -36,7 +36,7 @@ class RentalsController < ApplicationController
   private
 
   def check_params
-    params.require(:rental).permit(:id)
+    params.require(:rental).permit(:customer_id, :movie_id)
   end
 
   def rental_params
