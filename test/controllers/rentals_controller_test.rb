@@ -1,5 +1,5 @@
 require "test_helper"
-require 'date'
+
 
 describe RentalsController do
   describe 'create' do
@@ -118,4 +118,4 @@ describe RentalsController do
       expect(rental.due_date).must_equal (rental.check_out_date + 7)
     end
   end
-end
+# end
