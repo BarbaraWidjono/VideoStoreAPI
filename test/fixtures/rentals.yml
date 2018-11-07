@@ -7,9 +7,9 @@
 
 
 one:
-  customer_id: shelly
-  movie_id: one
+  customer: shelly
+  movie: one
 
 two:
-  customer_id: curran
-    movie_id: two
+  customer: curran
+  movie: two

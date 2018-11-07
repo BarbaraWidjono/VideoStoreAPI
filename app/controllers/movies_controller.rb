@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
   def create
     movie = Movie.new(movie_params)
     movie.available_inventory = movie.inventory
-    
+
     if movie.save
       render json: { id: movie.id }
     else
@@ -29,7 +29,11 @@ class MoviesController < ApplicationController
   private
 
   def movie_params
-    params.require(:movie).permit(:title, :overview, :release_date, :inventory)
+    # This version will allow form data to be received (no hashes, just keys and values)
+    params.permit(:title, :overview, :release_date, :inventory)
+
+    # This version expects incoming data to be in the form of a hash within a hash (exterior hash who has a key of 'rental' => {title: x, overview: x, release: x, inventory: x})
+    # params.require(:rental).permit(:title, :overview, :release_date, :inventory)
   end
 
   def movify_index(movie_data)
