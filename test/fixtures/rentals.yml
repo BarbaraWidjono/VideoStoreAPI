@@ -9,11 +9,18 @@
 one:
   customer: shelly
   movie: one
+  check_out_date:
+  due_date:
 
 two:
   customer: curran
   movie: two
+<<<<<<< HEAD
 
 three:
   customer: dave
   movie: two
+=======
+  check_out_date:
+  due_date:
+>>>>>>> 8d5f45d31a85aa7b7c1d7ef16557ce879c2c782e
