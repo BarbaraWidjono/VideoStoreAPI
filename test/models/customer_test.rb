@@ -11,10 +11,14 @@ describe Customer do
       customer = Customer.first
       movie_1 = Movie.first
       movie_2 = Movie.last
-      rental_1 = Rental.create!(customer_id: customer.id, movie_id: movie_1.id)
-      rental_2 = Rental.create!(customer_id: customer.id, movie_id: movie_2.id)
-      rentals = Rental.where(customer_id: customer.id)
-      expect(rentals.count).must_equal 2
+
+      current_rental_count = Rental.where(customer_id: customer.id).count
+
+      rental_1 = Rental.create(customer_id: customer.id, movie_id: movie_1.id)
+      rental_2 = Rental.create(customer_id: customer.id, movie_id: movie_2.id)
+      rentals = Rental.where(customer_id: customer.id).count
+
+      expect(rentals).must_equal (current_rental_count + 2)
     end
   end
 
