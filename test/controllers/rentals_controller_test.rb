@@ -1,4 +1,5 @@
 require "test_helper"
+require 'date'
 
 describe RentalsController do
   describe 'create' do
@@ -76,6 +77,45 @@ describe RentalsController do
       end_availablity = movie_one.available_inventory
 
       expect(start_availability).must_equal end_availablity
+    end
+
+    it 'sets a checkout date and due date for a valid rental' do
+      @customer = Customer.create(
+        name: "PotatoHead",
+        registered_at: "Wed, 29 Apr 2015 07:54:14 -0700",
+        postal_code: "98103",
+        phone: "(206)222-2222"
+      )
+
+      info ={
+        "customer_id" => @customer.id,
+        "movie_id" => movie_one.id
+      }
+
+      post checkout_path, params: info
+      rental = Rental.find_by(customer_id: @customer.id)
+
+      expect(rental.check_out_date).must_be_kind_of Date
+      expect(rental.due_date).must_be_kind_of Date
+
+    end
+
+    it 'sets a due date that is 7 days after the checkout date for a valid rental' do
+      @customer = Customer.create(
+        name: "PotatoHead",
+        registered_at: "Wed, 29 Apr 2015 07:54:14 -0700",
+        postal_code: "98103",
+        phone: "(206)222-2222"
+      )
+
+      info ={
+        "customer_id" => @customer.id,
+        "movie_id" => movie_one.id
+      }
+
+      post checkout_path, params: info
+      rental = Rental.find_by(customer_id: @customer.id)
+      expect(rental.due_date).must_equal (rental.check_out_date + 7)
     end
   end
 end
