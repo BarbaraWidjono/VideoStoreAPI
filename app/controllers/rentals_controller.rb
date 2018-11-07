@@ -6,6 +6,7 @@ class RentalsController < ApplicationController
     rental.due_date = (Date.today + 7)
 
     if rental.save
+      increase_movie_count(rental_params[:customer_id])
       change_avail_inventory(rental_params[:movie_id])
       render json: { id: rental}
     else
@@ -29,18 +30,14 @@ class RentalsController < ApplicationController
   end
 
 
-
-
-
-
   private
 
   def check_params
-    params.require(:rental).permit(:customer_id, :movie_id)
+    params.permit(:customer_id, :movie_id)
   end
 
   def rental_params
-    params.require(:rental).permit(:movie_id, :customer_id)
+    params.permit(:movie_id, :customer_id)
   end
 
   def change_avail_inventory(id)
@@ -54,4 +51,15 @@ class RentalsController < ApplicationController
     movie.available_inventory += 1
     movie.save
   end
+
+
+  def increase_movie_count(id)
+    customer = Customer.find_by(id: id)
+    customer.movies_checked_out_count += 1
+    customer.save
+  end
+
+
+
+
 end
