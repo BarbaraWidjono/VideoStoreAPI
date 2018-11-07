@@ -20,7 +20,6 @@ class RentalsController < ApplicationController
     if !rental
       render json: { message: "Rental id: #{check_params[:id]} doesn't exist. Try again"}
     else
-
       temp = rental.id
       temp_movie_id = rental.movie_id
       if rental.destroy

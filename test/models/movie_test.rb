@@ -2,6 +2,8 @@ require "test_helper"
 require 'pry'
 describe Movie do
   let (:blacksmith) {movies(:one)}
+  let(:person) {customers(:curran)}
+
 
   it "must be valid" do
     value(blacksmith).must_be :valid?
@@ -36,8 +38,12 @@ describe Movie do
 
 
   it "movie has many rentals" do
-    empty_array = blacksmith.rentals
-    expect(empty_array).must_equal []
+    rental = Rental.new(customer_id: person.id, movie_id: blacksmith.id)
+    expect(rental.customer_id).must_equal person.id
+    expect(rental.movie_id).must_equal blacksmith.id
+    expect(rental).must_be_kind_of Rental
+
+
   end
 
 

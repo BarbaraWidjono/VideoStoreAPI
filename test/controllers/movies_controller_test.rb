@@ -43,27 +43,29 @@ describe MoviesController do
 
 
   describe "create" do
-    let(:movie_data) {
-      {
-        title: "new movie",
-        overview: "best movie ever",
-        release_date: "2018-11-02",
-        inventory: 10
-      }
-    }
+    #
+  let(:movie_data) {
+    {"title" => "Cool Movie", "overview" => "This is awesome", "release_date" => "2018-11-02", "inventory" => 10}
+  }
 
     it "create a new a movie given valid data" do
+
       expect{
-        post movies_path, params: { movie: movie_data }
+        post movies_path, params: movie_data
       }.must_change "Movie.count", 1
 
+      must_respond_with :success
+
+
       body = JSON.parse(response.body)
+      movie = Movie.find(body["id"].to_i)
+
+
       expect(body).must_be_kind_of Hash
       expect(body).must_include "id"
 
-      movie = Movie.find(body["id"].to_i)
-      expect(movie.title).must_equal movie_data[:title]
-      must_respond_with :success
+      expect(movie.title).must_equal movie_data["title"]
+
     end
 
 
@@ -112,7 +114,7 @@ describe MoviesController do
     end
   end
 
-  
+
 
 
 
