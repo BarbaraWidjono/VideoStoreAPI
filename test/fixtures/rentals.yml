@@ -10,10 +10,16 @@ one:
   customer: shelly
   movie: one
   check_out_date:
-  due_date:
+    due_date:
 
 two:
   customer: curran
+  movie: two
+  check_out_date:
+  due_date:
+
+three:
+  customer: dave
   movie: two
   check_out_date:
   due_date:
