@@ -39,10 +39,23 @@ describe CustomersController do
       must_respond_with :success
     end
 
+    it "returns json for existing customer" do
+      get customer_path(@customer.id)
+      expect(response.header['Content-Type']).must_include 'json'
+    end
+
     it 'will render a status not_found for a non-existant customer' do
       non_existant_cust_id = "99999xxxxxxxxxx9999"
       get customer_path(non_existant_cust_id)
       must_respond_with :not_found
+    end
+  end
+
+  describe 'zomg' do
+    it 'renders a json message for this route' do
+      get zomg_path
+      body = JSON.parse(response.body)
+      expect(body["message"]).must_equal "it works!"
     end
   end
 end
