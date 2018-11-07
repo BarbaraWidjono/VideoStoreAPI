@@ -22,6 +22,7 @@ class RentalsController < ApplicationController
     else
       temp = rental.id
       temp_movie_id = rental.movie_id
+
       if rental.destroy
         checkin_change_avail_inventory(temp_movie_id)
         render json: { message: "Rental id: #{temp} has been deleted"}
